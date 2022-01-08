@@ -130,3 +130,8 @@ dmypy.json
 
 # S3 stuffz
 downloaded_example*.txt
+
+#
+testing_play.py
+testing_play.txt
+*MB.bin
