@@ -1,16 +1,31 @@
 import boto3
-from botocore.config import Config
-
-client_cfg = Config(
-    retries={
-        "max_attempts": 2,
-    }
-)
 
 
-s3 = boto3.client("s3", config=client_cfg)
-response = s3.list_buckets()
+def list_buckets() -> list:
+    """List all buckets using S3 client."""
+    s3 = boto3.client(
+        "s3",
+    )
 
-# print the name of every bucket:
-for bucket in response["Buckets"]:
-    print(f'  {bucket["Name"]}')
+    buckets = []
+    response = s3.list_buckets()
+    for bucket in response["Buckets"]:
+        buckets.append(bucket["Name"])
+    return buckets
+
+
+def list_buckets_resource() -> list:
+    """List all buckets using S3 resource."""
+    s3 = boto3.resource(
+        "s3",
+    )
+
+    buckets = []
+    for bucket in s3.buckets.all():
+        buckets.append(bucket.name)
+    return buckets
+
+
+if __name__ == "__main__":
+    print(list_buckets())
+    print(list_buckets_resource())

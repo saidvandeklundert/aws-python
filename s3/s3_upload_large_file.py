@@ -1,3 +1,9 @@
+"""
+Script will generate a large file and upload it to the S3 bucket specified in main.
+
+Script cleans up after itself by deleting the file from S3 and the local file.
+
+"""
 from pathlib import Path
 from typing import Optional
 import boto3
