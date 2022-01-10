@@ -1,13 +1,18 @@
+"""
+Few random methods using the boto3 s3 resource.
+"""
 import boto3
 
-s3 = boto3.resource("s3")
-obj = s3.Object(
+s3_resource = boto3.resource("s3")
+
+# get object data:
+obj = s3_resource.Object(
     bucket_name="saidvandeklundert-s3", key="calling_rust_from_python_draw_io.png"
 )
 print(obj.last_modified)
 
 # access the client through the resource:
-s3_resource = boto3.resource("s3")
+
 s3_client = s3_resource.meta.client
 print(s3_client.list_buckets())
 
