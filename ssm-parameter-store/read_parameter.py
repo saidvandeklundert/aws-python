@@ -1,11 +1,16 @@
 import boto3
 
 
-ssm = boto3.client("ssm")
+def get_parameter(parameter: str) -> str:
+    """parameter is the 'path' to the parameter."""
+    ssm_client = boto3.client("ssm")
 
-PARAMETER = ssm.get_parameter(
-    Name="/passwords/infrastructure/ssot_token", WithDecryption=True
-)
-PASSWORD = PARAMETER["Parameter"]["Value"]
+    parameter = ssm_client.get_parameter(Name=parameter, WithDecryption=True)
 
-print(f"## SSM Parameter Store value: {PASSWORD}")
+    return parameter["Parameter"]["Value"]
+
+
+if __name__ == "__main__":
+    parameter = get_parameter("/passwords/infrastructure/ssot_token")
+
+    print(f"## SSM Parameter Store value: {parameter}")
