@@ -1,5 +1,11 @@
 import boto3
 
-dynamo_db = boto3.client("dynamodb")
-devices_data = dynamo_db.scan(TableName="devices")
-print(devices_data)
+
+def scan_table():
+    dynamo_db = boto3.client("dynamodb")
+    devices_data = dynamo_db.scan(TableName="devices")
+    return devices_data
+
+
+if __name__ == "__main__":
+    print(scan_table())
