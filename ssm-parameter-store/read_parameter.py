@@ -5,9 +5,9 @@ def get_parameter(parameter: str) -> str:
     """parameter is the 'path' to the parameter."""
     ssm_client = boto3.client("ssm")
 
-    parameter = ssm_client.get_parameter(Name=parameter, WithDecryption=True)
+    client_response = ssm_client.get_parameter(Name=parameter, WithDecryption=True)
 
-    return parameter["Parameter"]["Value"]
+    return client_response["Parameter"]["Value"]
 
 
 if __name__ == "__main__":
