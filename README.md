@@ -77,7 +77,6 @@ ssm = boto3.client("ssm")
 ```
 
 
-
 Clients come with waiters that you can interface with. These waiters will poll the status of an AWS resource and inform you when the awaited state is reached or when there is a failure.
 
 The `waiter_names` method reveals the available waiters:
@@ -99,6 +98,7 @@ Resources represent an object-oriented interface to Amazon Web Services (AWS). T
 ```
 
 Resources are generated from the JSON resource definition file. As noted earlier, you can define a resource as follows:
+
 ```python
 import boto3
 
