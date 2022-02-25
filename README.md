@@ -4,8 +4,22 @@ Doing stuff with AWS using Python
 
 # Setting things up
 
-Pip install boto3 and put in place your credentials following [this](https://docs.aws.amazon.com/rekognition/latest/dg/setup-awscli-sdk.html) guide.
+You can pip install boto3 and put in place your credentials following [this](https://docs.aws.amazon.com/rekognition/latest/dg/setup-awscli-sdk.html) guide.
 
+What I am working with is 2 files in the .aws directory that is located in my homedir:
+
+A file called `config`:
+```
+[default]
+region=eu-central-1
+```
+
+And a file called `credentials`:
+```
+[default]
+aws_access_key_id = ________
+aws_secret_access_key = ________
+```
 
 # Boto3
 
