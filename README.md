@@ -23,7 +23,18 @@ aws_secret_access_key = ________
 
 # Boto3
 
-The SDK provides an object-oriented API as well as low-level access to AWS services.
+The SDK provides an object-oriented API as well as low-level access to AWS services. The `boto3` library is built on top of `botocore`, which also serves as the foundation to the AWS CLI. The `botocore` libray provides the low-level clients, session, credentials and configuration data that `boto3` builds on.
+
+## Botocore
+
+The `botocore` package is a low level interface that is responsible for:
+- access to all available AWS services and operations within a service
+- marshall parameters for an operation in the correct format (serialization)
+- signing the request
+- deserialization of the response
+
+
+This package has does not really provide ergonomics nor does it provide any abstractions, that is where `boto3` comes in.
 
 ## Config object.
 
@@ -65,7 +76,7 @@ Clients and resources offer access to the AWS services. Clients allow you to acc
 ### Clients:
 
 ```
-Clients provide a low-level interface to AWS whose methods map close to 1:1 with service APIs. All service operations are supported by clients. Clients are generated from a JSON service definition file.
+Clients provide a low-level interface to AWS whose methods map close to 1:1 with service APIs. All service operations are supported by clients. Clients are generated from a JSON service definition file that is maintained by AWS.
 ```
 
 Creating a client can be done as follows:
@@ -89,7 +100,8 @@ The `waiter_names` method reveals the available waiters:
 
 ```
 
-CLient sessions are thread-safe, though the documentation does list some [caveats](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/clients.html#caveats).
+Client sessions are thread-safe, though the documentation does list some [caveats](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/clients.html#caveats).
+
 
 ### Resource:
 
@@ -129,11 +141,11 @@ Note about resources: they are NOT threadsafe!
 
 This refers to the session that is used to have boto interact with AWS. 
 
-A default session to interact with AWS is created for you automatically when using boto. For instace, when you createa a low level client, boto3 acts as a proxy to the default session.
+A default session to interact with AWS is created for you automatically when using boto. For instance, when you createa a low level client, boto3 acts as a proxy to the default session.
 
 It is possible, using `boto3.session`, to manage your own sessions and use that session to create clients or resources. Every session can be given it's own configuration (keys, regions, etc.).
 
-Session objects are not thread safe. It is recommended that you create a session object for every thread of process.
+Session objects are _not_ thread safe. It is recommended that you create a session object for every thread of process.
 
 
 ## Collections
