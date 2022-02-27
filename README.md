@@ -128,12 +128,12 @@ print(s3_client.list_buckets())
 ```
 
 Every resource instance that you create has attributes and methods that can be devided as follows:
-- identifiers: example, bucket name
-- attributes: example, last modified
-- actions: methods that make a call to the service to do something (create, delete, etc.)
-- references: references to attributes related to the resource (example, ec2 subnet)
-- sub-resources: related to the resource. Example, s3 `bucket_name`. TheS3 object cannot exist without a bucket name.
-- collections: iterable interface to a group of resources
+- `identifiers`: example, bucket name
+- `attributes`: example, last modified
+- `actions`: methods that make a call to the service to do something (create, delete, etc.)
+- `references`: references to attributes related to the resource (example, ec2 subnet)
+- `sub-resources`: related to the resource. Example, s3 `bucket_name`. TheS3 object cannot exist without a bucket name.
+- `collections`: iterable interface to a group of resources
 
 Note about resources: they are NOT threadsafe!
 
