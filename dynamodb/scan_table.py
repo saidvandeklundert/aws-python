@@ -8,4 +8,6 @@ def scan_table():
 
 
 if __name__ == "__main__":
-    print(scan_table())
+    from pprint import pprint
+
+    pprint(scan_table())
