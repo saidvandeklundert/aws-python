@@ -19,7 +19,7 @@ def create_table() -> None:
         ProvisionedThroughput={
             "ReadCapacityUnits": 1,
             "WriteCapacityUnits": 1,
-        },  # this is free!
+        },  # 1 RCU and 1 WCU is free!
     )
 
     print(
