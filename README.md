@@ -1,5 +1,6 @@
 # aws-python
-Doing stuff with AWS using Python
+
+Doing stuff with AWS using Python. A description of boto3 and a selection of scripts that interact with a variety of AWS services.
 
 
 # Setting things up

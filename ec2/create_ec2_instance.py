@@ -57,10 +57,10 @@ def terminate_instance(instance_id: str):
     print(response)
 
 
-def get_running_instances() -> list[dict]:
+def get_running_instances(*, region_name: str) -> list[dict]:
     """Returns a list of running instances"""
 
-    ec2_client = boto3.client("ec2", region_name="eu-central-1")
+    ec2_client = boto3.client("ec2", region_name=region_name)
     reservations = ec2_client.describe_instances(
         Filters=[
             {
@@ -84,7 +84,7 @@ if __name__ == "__main__":
     instance_id = create_instance(ec2_param=ec2_param)
 
     time.sleep(30)
-    reservations = get_running_instances()
+    reservations = get_running_instances(region_name="eu-central-1")
 
     for reservation in reservations:
         for instance in reservation["Instances"]:
