@@ -51,7 +51,7 @@ if __name__ == "__main__":
     send_message_id = send_response["MessageId"]
     send_message_md5 = send_response["MD5OfMessageBody"]
     print(
-        f"Message that was send to the queue has id {send_message_id} and md5 {send_message_md5}."
+        f"\n\n\nMessage that was send to the queue has id {send_message_id} and md5 {send_message_md5}.\n\n"
     )
 
     to_delete = []
