@@ -3,6 +3,7 @@ import boto3
 from typing import List
 from pprint import pprint
 from botocore.exceptions import ClientError
+import csv
 
 
 def create_table() -> None:
@@ -54,10 +55,18 @@ class DynamoDBRepository:
         self.table = self.resource.Table(self.table_name)
 
     def put_item(self, human: Human):
+        """Update the table with an item."""
         response = self.table.put_item(Item=vars(human))
         pprint(response)
 
+    def put_batch_item(self, humans: List[Human]):
+        """Update the table with a batch of items."""
+        with self.table.batch_writer() as batch:
+            for human in humans:
+                batch.put_item(Item=vars(human))
+
     def get_item(self, *, name, id_nr):
+        """Return target item from the database."""
         try:
             response = self.table.get_item(Key={"id": id_nr, "name": name})
         except ClientError as e:
@@ -66,7 +75,7 @@ class DynamoDBRepository:
             return response["Item"]
 
     def delete_item(self, human: Human):
-
+        """Return target item from the database."""
         try:
             response = self.table.delete_item(Key={"id": human.id, "name": human.name})
         except ClientError as e:
@@ -78,7 +87,7 @@ class DynamoDBRepository:
             return response
 
     def get_all(self):
-
+        """Scans the table and returns it."""
         devices_data = self.client.scan(TableName=self.table_name)
         return devices_data
 
@@ -90,15 +99,39 @@ HUMANS = [
     Human(id=4, name="Anne", weight=50, height=158),
 ]
 
+
+def humans_from_csv(file_name: str) -> List[Human]:
+    humans: List[Human] = []
+    with open(file_name, "rt") as f:
+        csv_data = csv.DictReader(f)
+        for row in csv_data:
+            humans.append(
+                Human(
+                    id=int(row["id"]),
+                    name=row["name"],
+                    weight=int(row["weight"]),
+                    height=int(row["height"]),
+                )
+            )
+    return humans
+
+
 if __name__ == "__main__":
+
     create_table()
 
     repo = DynamoDBRepository()
     for human in HUMANS:
         repo.put_item(human)
-    pprint(repo.get_all())
 
+    moar_humans = humans_from_csv("data/humans.csv")
+
+    repo.put_batch_item(moar_humans)
+
+    pprint(repo.get_all())
     pprint(repo.get_item(name="Jan", id_nr=2))
     for human in HUMANS:
+        repo.delete_item(human)
+    for human in moar_humans:
         repo.delete_item(human)
     pprint(repo.get_all())
