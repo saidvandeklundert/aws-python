@@ -33,6 +33,7 @@ def delete_message(queueu_url: str, region_name: str, receipt_handle: str):
     return response
 
 
+
 if __name__ == "__main__":
     queueu_url = "https://eu-central-1.queue.amazonaws.com/717687450252/example-queue"
     region_name = "eu-central-1"
